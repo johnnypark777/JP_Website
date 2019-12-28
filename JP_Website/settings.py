@@ -22,6 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ragai4rx8g8w_22!975%l9w^vuop1%c(#yw)oy1t^44w#jb40b'
 
+SECURE_SSL_REDIRECT = True
+
+#SECURE_HSTS_SECONDS = 
+
+SECURE_REFERRER_POLICY = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -42,10 +48,10 @@ INSTALLED_APPS = [
     #third party
 
     #own
-    'products',
-    'Blog',
-    'courses',
+    'main',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +80,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'JP_Website.wsgi.application'
 
@@ -126,3 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+        ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')

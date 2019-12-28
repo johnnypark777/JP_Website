@@ -16,16 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from main.views import home_view, bigshaq, about_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_view,name='home'),
-    path('bigshaq/', bigshaq),
-    path('about/<int:id>', about_view,name='product_detail'),
-    path('products/',include('products.urls')),
-    path('courses/',include('courses.urls')),
-    path('Blog/',include('Blog.urls')),
+    path('',include('main.urls')),
 ]
 
 #  start

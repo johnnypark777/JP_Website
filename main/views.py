@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import os
+from django.conf import settings
 
 # Create your views here.
 
@@ -12,16 +14,9 @@ def bigshaq(request,*args,**kwargs):
     print(request.user)
     return render(request,"bigshaq.html",{})
 
-def about_view(request,*args,**kwargs):
-    test_1 = {
-            "Title":"testing Django built-in templates tags and filters",
-            "text_1":"test",
-            "number_1":"42069",
-            "list_1":[420,42069,69]
-        }
-    print(request.user)
-    return render(request,"about.html",test_1)
 
 def projects_view(request,*args,**kwargs):
     print(request.user)
     return render(request,"projects.html",{})
+
+
