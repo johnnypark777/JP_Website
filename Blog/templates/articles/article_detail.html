@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{object.title}}</h1>
+<p>
+{% if object.content%}
+    {{object.content}}
+{% else %}
+    Content Coming soon
+{%endif%}
+</p>
+
+<p>
+{% if object.active == True %}
+    Active
+{% else %}
+    Inactive 
+{%endif%}
+</p>
+{% endblock %}
