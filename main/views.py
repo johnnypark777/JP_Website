@@ -19,4 +19,7 @@ def projects_view(request,*args,**kwargs):
     print(request.user)
     return render(request,"projects.html",{})
 
+def poachedegg(request,*args,**kwargs):
+    print(request.user)
+    return render(request,"poachedegg.html",{})
 

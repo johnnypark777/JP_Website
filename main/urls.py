@@ -9,4 +9,5 @@ urlpatterns = [
         path('projects/',projects_view,name= 'projects'),
         path('', home_view,name='home'),
         path('bigshaq1/', bigshaq),
+        path('poachedegg/', poachedegg),
 ]
