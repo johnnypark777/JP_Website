@@ -1,1 +1,3 @@
 Django
+supervisor
+gunicorn
