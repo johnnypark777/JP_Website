@@ -9,6 +9,6 @@ urlpatterns = [
     path('projects/', projects_view, name='projects'),
     path('bigshaq1/', bigshaq),
     path('poachedegg/', poachedegg),
-    path('',index),
-    path('1999/',home_view),
+    path('', index),
+    path('1999/', home_view),
 ]

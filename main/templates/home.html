@@ -1,9 +1,9 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block content %}
-{% load static %}
-<h1>Hello, I'm Johnny Park</h1> 
+    {% load static %}
+    <h1>Hello, I'm Johnny Park</h1>
 
-<img src = "{% static 'main/profile.jpg' %}" width="200" height="200" alt = "test">
+    <img src="{% static 'main/profile.jpg' %}" width="200" height="200" alt="test">
 
 {% endblock %}
