@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.template.context_processors import media
@@ -21,25 +22,29 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ragai4rx8g8w_22!975%l9w^vuop1%c(#yw)oy1t^44w#jb40b'
 
-# SECURE_SSL_REDIRECT = True
-#
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#
-# SECURE_HSTS_SECONDS = 2592000
-#
-# SECURE_HSTS_PRELOAD = True
-#
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+def find_or_create_secret_key():
+    SECRET_KEY_DIR = os.path.dirname(__file__)
+    SECRET_KEY_FILEPATH = os.path.join(SECRET_KEY_DIR, 'secret_key.py')
+    sys.path.insert(1,SECRET_KEY_DIR)
 
-# CSRF_COOKIE_SECURE = True
+    if os.path.isfile(SECRET_KEY_FILEPATH):
+        from secret_key import SECRET_KEY
+        return SECRET_KEY
+    else:
+        from django.utils.crypto import get_random_string
+        chars = 'tinggoesskrrrrrrrrrrr42069696969xDXD:D:P:3'
+        new_key = get_random_string(50, chars)
+        with open(SECRET_KEY_FILEPATH, 'w') as f:
+            f.write("# Django secret key\n# Do NOT check this into version control.\n\nSECRET_KEY = '%s'\n" % new_key)
+        from secret_key import SECRET_KEY
+        return SECRET_KEY
 
-# SESSION_COOKIE_SECURE = True
-
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = find_or_create_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
