@@ -27,3 +27,7 @@ def poachedegg(request, *args, **kwargs):
 def index(request, *args, **kwargs):
     print(request.user)
     return render(request, "index.html", {})
+    
+def benson(request, *args, **kwargs):
+    print(request.user)
+    return render(request, "Benson.html", {})
