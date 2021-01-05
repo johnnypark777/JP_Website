@@ -18,6 +18,7 @@ from django.template.context_processors import media
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def find_or_create_secret_key():
     SECRET_KEY_DIR = os.path.dirname(__file__)
     SECRET_KEY_FILEPATH = os.path.join(SECRET_KEY_DIR, 'secret_key.py')
-    sys.path.insert(1,SECRET_KEY_DIR)
+    sys.path.insert(1, SECRET_KEY_DIR)
 
     if os.path.isfile(SECRET_KEY_FILEPATH):
         from secret_key import SECRET_KEY
@@ -40,11 +41,12 @@ def find_or_create_secret_key():
         from secret_key import SECRET_KEY
         return SECRET_KEY
 
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = find_or_create_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 

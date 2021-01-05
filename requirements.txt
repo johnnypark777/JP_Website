@@ -1,3 +1,5 @@
 Django
 supervisor
 gunicorn
+boto3
+django-storages
