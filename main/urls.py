@@ -11,10 +11,9 @@ urlpatterns = [
     path('poachedegg/', poachedegg),
     path('', index),
     path('1999/', home_view),
-    path('benson/',benson),
-    path('imagesystem/', book_list, name='book_list'),
-    path('imagesystem/upload/', upload_book, name='upload_book'),
-
+    path('imagesystem/', file_list, name='file_list'),
+    path('imagesystem/upload/', upload_file, name='upload_file'),
+    path('imagesystem/<int:pk>/', delete_file, name='delete_file'),
 ]
 
 if settings.DEBUG:

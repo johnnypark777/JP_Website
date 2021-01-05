@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from main.forms import BookForm
-from main.models import Book
+from main.forms import FileForm
+from main.models import File
 
 
 def home_view(request, *args, **kwargs):
@@ -31,27 +31,28 @@ def index(request, *args, **kwargs):
     return render(request, "index.html", {})
 
 
-def benson(request, *args, **kwargs):
-    print(request.user)
-    return render(request, "Benson.html", {})
-
-
-def book_list(request):
-    books = Book.objects.all()
-    return render(request, 'book_list.html', {
-        'books': books
+def file_list(request):
+    books = File.objects.all()
+    return render(request, 'file_list.html', {
+        'files': books
     })
 
 
-def upload_book(request):
+def upload_file(request):
     if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES)
+        form = FileForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form)
             form.save()
-            return redirect('book_list')
+            return redirect('file_list')
     else:
-        form = BookForm()
-    return render(request, 'upload_book.html', {
+        form = FileForm()
+    return render(request, 'upload_file.html', {
         'form': form
     })
+
+
+def delete_file(request, pk):
+    if request.method == 'POST':
+        file = File.objects.get(pk=pk)
+        file.delete()
+    return redirect('file_list')
