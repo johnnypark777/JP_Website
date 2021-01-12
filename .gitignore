@@ -6,5 +6,6 @@ secret_key.py
 __pycache__
 .idea/*
 venv/*
+media/*
 db.sqlite3
 

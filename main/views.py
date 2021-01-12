@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.core import serializers
+
 
 # Create your views here.
 from main.forms import FileForm
@@ -36,6 +39,10 @@ def file_list(request):
     return render(request, 'file_list.html', {
         'files': books
     })
+
+def image_list(request):
+    book_json = list(File.objects.values())
+    return JsonResponse(book_json,safe=False)
 
 
 def upload_file(request):
