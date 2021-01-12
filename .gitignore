@@ -8,4 +8,4 @@ __pycache__
 venv/*
 media/*
 db.sqlite3
-
+JP_Website/settings.py
