@@ -3,3 +3,4 @@ supervisor
 gunicorn
 boto3
 django-storages
+django-cors-headers
