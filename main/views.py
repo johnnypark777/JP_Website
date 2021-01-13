@@ -58,6 +58,7 @@ def image(request, pk):
 
 @csrf_exempt
 def image_upload(request):
+    print("Test")
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
