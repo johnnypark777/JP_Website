@@ -57,6 +57,17 @@ def image(request, pk):
 
 
 @csrf_exempt
+def image_upload(request):
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('https://image.johnnypark.ca')
+        return HttpResponseNotFound("<h1>Error: Upload failed</h1>")
+    return HttpResponseNotFound("<h1>Page not found</h1>")
+
+
+@csrf_exempt
 def image_delete(request, pk):
     if request.method == 'POST':
         file = File.objects.get(pk=pk)
@@ -66,7 +77,6 @@ def image_delete(request, pk):
         return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
-@csrf_exempt
 def upload_file(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)

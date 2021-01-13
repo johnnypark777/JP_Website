@@ -16,6 +16,7 @@ urlpatterns = [
     path('imagesystem/<int:pk>/', delete_file, name='delete_file'),
     path('api/image_delete/<int:pk>', image_delete, name='image'),
     path('api/imagelist', image_list, name='image_list'),
+    path('api/image_upload', image_upload, name='image_upload'),
     path('api/image/<int:pk>', image, name='image'),
 ]
 
