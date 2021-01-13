@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse, HttpResponseNotFound 
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
@@ -48,7 +48,12 @@ def image_list(request):
 
 def image(request, pk):
     if request.method == 'GET':
-        file = File.objects.get(pk=pk)
+        if not File.objects.filter(pk=pk).exists():
+            return  HttpResponseNotFound("<h1>Error: File not found</h1>")
+        tmpfile = File.objects.get(pk=pk).file
+        return FileResponse(tmpfile)
+    else: 
+        return  HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 @csrf_exempt
