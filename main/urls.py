@@ -14,8 +14,9 @@ urlpatterns = [
     path('imagesystem/', file_list, name='file_list'),
     path('imagesystem/upload/', upload_file, name='upload_file'),
     path('imagesystem/<int:pk>/', delete_file, name='delete_file'),
+    path('api/image_delete/<int:pk>', image_delete, name='image'),
     path('api/imagelist', image_list, name='image_list'),
-    path('api/image/<int:pk>', image, name='image')
+    path('api/image/<int:pk>', image, name='image'),
 ]
 
 if settings.DEBUG:

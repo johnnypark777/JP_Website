@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, FileResponse, HttpResponseNotFound 
+from django.http import JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect 
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
@@ -54,6 +54,16 @@ def image(request, pk):
         return FileResponse(tmpfile)
     else: 
         return  HttpResponseNotFound("<h1>Page not found</h1>")
+
+
+@csrf_exempt
+def image_delete(request, pk):
+    if request.method == 'POST':
+        file = File.objects.get(pk=pk)
+        file.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+    else:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
 @csrf_exempt
