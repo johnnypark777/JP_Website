@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core import serializers
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from main.forms import FileForm
@@ -40,11 +40,18 @@ def file_list(request):
         'files': books
     })
 
+
 def image_list(request):
     book_json = list(File.objects.values())
-    return JsonResponse(book_json,safe=False)
+    return JsonResponse(book_json, safe=False)
 
 
+def image(request, pk):
+    if request.method == 'GET':
+        file = File.objects.get(pk=pk)
+
+
+@csrf_exempt
 def upload_file(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
