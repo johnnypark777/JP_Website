@@ -66,7 +66,7 @@ def image_upload(request):
             for f in request.FILES.getlist('file'):
                 instance = File(file=f)
                 instance.save()
-            return redirect("https://image.johnnypark.ca")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         return HttpResponseForbidden("<h1>Error: Upload failed</h1>")
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
