@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect 
+from django.http import JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect,HttpResponseForbidden
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 from main.forms import FileForm
 from main.models import File
-
+import logging
 
 def home_view(request, *args, **kwargs):
     print(request.user)
@@ -36,6 +36,7 @@ def index(request, *args, **kwargs):
 
 def file_list(request):
     books = File.objects.all()
+    print("test")
     return render(request, 'file_list.html', {
         'files': books
     })
@@ -58,13 +59,15 @@ def image(request, pk):
 
 @csrf_exempt
 def image_upload(request):
-    print("Test")
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
+        print(request.FILES)
         if form.is_valid():
-            form.save()
+            for f in request.FILES.getlist('file'):
+                instance = File(file=f)
+                instance.save()            
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        return HttpResponseNotFound("<h1>Error: Upload failed</h1>")
+        return HttpResponseForbidden("<h1>Error: Upload failed</h1>")
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
 
