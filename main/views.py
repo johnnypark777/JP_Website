@@ -30,6 +30,10 @@ def poachedegg(request, *args, **kwargs):
 
 
 def index(request, *args, **kwargs):
+    if request.method == 'OPTIONS':
+        response =  JsonResponse()
+        response['Access-Control-Allow-Origin'] = "*"
+        return(response)
     print(request.user)
     return render(request, "index.html", {})
 
@@ -66,7 +70,9 @@ def image_upload(request):
             for f in request.FILES.getlist('file'):
                 instance = File(file=f)
                 instance.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            response = redirect(request.META.get('HTTP_REFERER'))
+            response['Access-Control-Allow-Origin'] = "*"
+            return response 
         return HttpResponseForbidden("<h1>Error: Upload failed</h1>")
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
