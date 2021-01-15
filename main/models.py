@@ -1,13 +1,11 @@
 from django.db import models
-
+import os
 
 class File(models.Model):
-    title = models.CharField(max_length=100)
-    owner = models.CharField(max_length=100)
     file = models.FileField(upload_to='files/')
-
     def __str__(self):
-        return self.title
+        return os.path.split(self.file.name)[1] 
+
 
     def delete(self, *args, **kwargs):
         self.file.delete()

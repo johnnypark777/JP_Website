@@ -12,8 +12,6 @@
     <table class="table mb-0">
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Owner</th>
             <th>Download</th>
             <th>Delete</th>
         </tr>
@@ -21,11 +19,9 @@
         <tbody>
         {% for file in files %}
             <tr>
-                <td>{{ file.title }}</td>
-                <td>{{ file.owner }}</td>
                 <td>
                     <a href="{{ file.file.url }}" class="btn btn-primary btn-sm" target="_blank">
-                        Download
+                        {{file.file.name}}
                     </a>
                 </td>
                 <td>
