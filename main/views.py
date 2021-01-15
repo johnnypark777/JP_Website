@@ -63,7 +63,7 @@ def image_upload(request):
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         return HttpResponseNotFound("<h1>Error: Upload failed</h1>")
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
@@ -73,7 +73,7 @@ def image_delete(request, pk):
     if request.method == 'POST':
         file = File.objects.get(pk=pk)
         file.delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         return HttpResponseNotFound("<h1>Page not found</h1>")
 
