@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect,HttpResponseForbidden
+from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect,HttpResponseForbidden
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
@@ -54,7 +54,7 @@ def image_list(request):
 def image(request, pk):
     if request.method == 'GET':
         if not File.objects.filter(pk=pk).exists():
-            return  HttpResponseNotFound("<h1>Error: File not found</h1>")
+            return  HttpResponseNotFound("<h1>Error: File Deleted</h1>")
         tmpfile = File.objects.get(pk=pk).file
         return FileResponse(tmpfile)
     else: 
@@ -65,14 +65,12 @@ def image(request, pk):
 def image_upload(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
-        print(request.FILES)
         if form.is_valid():
             for f in request.FILES.getlist('file'):
                 instance = File(file=f)
                 instance.save()
-            response = redirect(request.META.get('HTTP_REFERER'))
-            response['Access-Control-Allow-Origin'] = "*"
-            return response 
+            response = HttpResponse()
+            return response
         return HttpResponseForbidden("<h1>Error: Upload failed</h1>")
     return HttpResponseNotFound("<h1>Page not found</h1>")
 
@@ -80,8 +78,9 @@ def image_upload(request):
 @csrf_exempt
 def image_delete(request, pk):
     if request.method == 'POST':
-        file = File.objects.get(pk=pk)
-        file.delete()
+        if(File.objects.filter(pk=pk).exists()):
+            file = File.objects.get(pk=pk)
+            file.delete()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         return HttpResponseNotFound("<h1>Page not found</h1>")
