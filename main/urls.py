@@ -18,6 +18,8 @@ urlpatterns = [
     path('api/imagelist/', image_list, name='image_list'),
     path('api/image_upload/', image_upload, name='image_upload'),
     path('api/image/<int:pk>', image, name='image'),
+    path('api/image_upload', food, name='food_upload'),
+    path('api/food_delete/<int:pk>', food_delete, name='delete_food'),
 ]
 
 if settings.DEBUG:

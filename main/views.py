@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect,HttpResponseForbidden
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from JP_Website.main.forms import FoodForm
+from JP_Website.main.models import Food
 
 # Create your views here.
 from main.forms import FileForm
@@ -85,6 +87,29 @@ def image_delete(request, pk):
     else:
         return HttpResponseNotFound("<h1>Page not found</h1>")
 
+@csrf_exempt
+def food(request):
+    if request.method == 'POST':
+        form = FoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            for f in request.FILES.getlist('file'):
+                instance = Food(food=f)
+                instance.save()
+            response = HttpResponse()
+            return response
+        return HttpResponseForbidden("<h1>Error: Scan failed</h1>")
+    return HttpResponseNotFound("<h1>Page not found</h1>")
+
+
+@csrf_exempt
+def food_delete(request, pk):
+    if request.method == 'POST':
+        if(Food.objects.filter(pk=pk).exists()):
+            file = Food.objects.get(pk=pk)
+            file.delete()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        return HttpResponseNotFound("<h1>Food not found</h1>")
 
 def upload_file(request):
     if request.method == 'POST':
