@@ -52,6 +52,10 @@ def image_list(request):
     book_json = list(File.objects.values())
     return JsonResponse(book_json, safe=False)
 
+@csrf_exempt
+def food_list(request):
+    foodlist = list(Food.objects.values())
+    return JsonResponse(foodlist, safe=False)
 
 def image(request, pk):
     if request.method == 'GET':
@@ -88,7 +92,7 @@ def image_delete(request, pk):
         return HttpResponseNotFound("<h1>Page not found</h1>")
 
 @csrf_exempt
-def food(request):
+def food_upload(request):
     if request.method == 'POST':
         form = FoodForm(request.POST, request.data)
         if form.is_valid():
