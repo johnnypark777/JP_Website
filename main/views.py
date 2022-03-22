@@ -90,9 +90,9 @@ def image_delete(request, pk):
 @csrf_exempt
 def food(request):
     if request.method == 'POST':
-        form = FoodForm(request.POST, request.FILES)
+        form = FoodForm(request.POST, request.data)
         if form.is_valid():
-            for f in request.FILES.getlist('file'):
+            for f in request.data.getlist('food'):
                 instance = Food(food=f)
                 instance.save()
             response = HttpResponse()
