@@ -11,10 +11,3 @@ class File(models.Model):
         self.file.delete()
         super().delete(*args, **kwargs)
 
-class Food(models.Model):
-    food = models.CharField(max_length=100)
-    def __str__(self):
-        return os.path.split(self.food.name)[1]
-    def delete(self, *args, **kwargs):
-        self.food.delete()
-        super().delete(*args, **kwargs)

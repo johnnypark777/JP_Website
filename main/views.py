@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseNotFound, HttpResponseRedirect,HttpResponseForbidden
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-from JP_Website.main.forms import FoodForm
-from JP_Website.main.models import Food
 
 # Create your views here.
 from main.forms import FileForm
@@ -52,11 +50,6 @@ def image_list(request):
     book_json = list(File.objects.values())
     return JsonResponse(book_json, safe=False)
 
-@csrf_exempt
-def food_list(request):
-    foodlist = list(Food.objects.values())
-    return JsonResponse(foodlist, safe=False)
-
 def image(request, pk):
     if request.method == 'GET':
         if not File.objects.filter(pk=pk).exists():
@@ -90,30 +83,6 @@ def image_delete(request, pk):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         return HttpResponseNotFound("<h1>Page not found</h1>")
-
-@csrf_exempt
-def food_upload(request):
-    if request.method == 'POST':
-        form = FoodForm(request.POST, request.data)
-        if form.is_valid():
-            for f in request.data.getlist('food'):
-                instance = Food(food=f)
-                instance.save()
-            response = HttpResponse()
-            return response
-        return HttpResponseForbidden("<h1>Error: Scan failed</h1>")
-    return HttpResponseNotFound("<h1>Page not found</h1>")
-
-
-@csrf_exempt
-def food_delete(request, pk):
-    if request.method == 'POST':
-        if(Food.objects.filter(pk=pk).exists()):
-            file = Food.objects.get(pk=pk)
-            file.delete()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    else:
-        return HttpResponseNotFound("<h1>Food not found</h1>")
 
 def upload_file(request):
     if request.method == 'POST':
